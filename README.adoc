@@ -1,0 +1,50 @@
+= WOB Assignment Project
+
+== General
+
+This is a command line based application written in Spring Shell. You can access various functionalities by typing commands
+into a shell terminal which will output the result message of the processes triggered by them.
+
+The project was generated using the following Spring Initializr parameters:
+
+* Project: Maven
+* Language: Java 17
+* Spring Boot: 3.1.5
+* Packaging: JAR
+
+== Setup
+
+For running the application, first, you need to set up a container for hosting a local
+postgres database. You can achieve it by running the following command in the docker-compose
+folder that you can find in the project source.
+----
+docker-compose -f docker-compose.postgres-local-db.yml up -d
+----
+This command will set up a local postgres database using 5432 port. It also creates
+the relation tables of the app and populates them with initial test data read form docker-compose/sql.
+The app will communicate with this local database. If you wish to inspect the database through a client, you
+can find the connection credentials in the application.properties file.
+
+Also, you need to overwrite the FTP configuration data with your own configuration values.
+The FTP configuration key-value pairs are located in the application.properties file
+
+After the database is set up and the custom configs are given, you can run the application and
+type in commands to the shell terminal.
+
+== Commands
+
+[cols="1,4"]
+|===
+| *syncMarketplaces* | This command will fetch marketplace data list from the external endpoint https://my.api.mockaroo.com/marketplace?key=<key>
+and persist all of the response data into the database. The data that is already existing in the database will not be saved again.
+| *syncListingStatuses* | This command will fetch listingStatus data list from the external endpoint https://my.api.mockaroo.com/listingStatus?key=<key>
+and persist all of the response data into the database. The data that is already existing in the database will not be saved again.
+| *syncLocations* | This command will fetch location data list from the external endpoint https://my.api.mockaroo.com/location?key=<key>
+and persist all of the response data into the database. The data that is already existing in the database will not be saved again.
+| *syncListings* | This command will fetch listing data list from the external endpoint https://my.api.mockaroo.com/listing?key=<key>
+The response data list gets validated based on various factors and non of the invalid data gets saved, but instead,
+they get logged into src/main/resources/importLog.csv file. Afterwards, all the valid data is saved to the database,
+except for the ones that are already existing.
+| *genReport* | Generates a report about various listing entity metrics. All the existing listing data is used for the report creation.
+The report data is stored in a JSON file and gets uploaded to the configured FTP server.
+|===
