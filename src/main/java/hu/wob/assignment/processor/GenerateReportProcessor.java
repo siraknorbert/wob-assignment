@@ -43,7 +43,7 @@ public class GenerateReportProcessor {
         Map<String, Long> listingCountByMarketplaceName = listingService.countByMarketplaceForEachMarketplaceName();
         Map<String, BigDecimal> totalListingPriceByMarketplaceName = listingService.findAllTotalListingPriceByMarketplaceName();
         Map<String, BigDecimal> averageListingPriceByMarketplaceName = listingService.findAllAverageListingPriceByMarketplaceName();
-        List<ListingMetricsWithMonthPojo> monthlyMonths = fetchListingMetricsPerMonths();
+        List<ListingMetricsWithMonthPojo> monthlyReports = fetchListingMetricsPerMonths();
 
         listingMetrics.setTotalListingCount(totalListingCount);
         listingMetrics.setBestListerEmailAddress(optionalBestListerEmailAddress.orElse(null));
@@ -53,7 +53,7 @@ public class GenerateReportProcessor {
         listingMetrics.setTotalAmazonListingCount(listingCountByMarketplaceName.getOrDefault(MarketplaceNameEnum.AMAZON, 0L));
         listingMetrics.setTotalAmazonListingPrice(totalListingPriceByMarketplaceName.getOrDefault(MarketplaceNameEnum.AMAZON, BigDecimal.ZERO));
         listingMetrics.setAverageAmazonListingPrice(averageListingPriceByMarketplaceName.getOrDefault(MarketplaceNameEnum.AMAZON, BigDecimal.ZERO));
-        listingMetrics.setMonthlyReports(monthlyMonths);
+        listingMetrics.setMonthlyReports(monthlyReports);
 
         return listingMetrics;
     }

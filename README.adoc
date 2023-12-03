@@ -28,7 +28,12 @@ can find the connection credentials in the application.properties file.
 Also, you need to overwrite the FTP configuration data with your own configuration values.
 The FTP configuration key-value pairs are located in the application.properties file
 
-After the database is set up and the custom configs are given, you can run the application and
+Then, run the following command that will build the application and validate the test cases.
+----
+mvn clean install
+----
+
+After the previous steps, you can run the application and
 type in commands to the shell terminal.
 
 == Commands
